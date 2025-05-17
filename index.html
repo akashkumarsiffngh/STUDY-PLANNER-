@@ -100,16 +100,16 @@
 
   <form onsubmit="return false;">
     <input type="text" id="task" placeholder="Enter Task" required>
-    <label>Select Date:</label>
+    <label>SELECT DATE:</label>
     <input type="date" id="date" required>
     <label>Enter Time:</label>
     <input type="time" id="time" required>
-    <button onclick="addTask()">Add Task</button>
+    <button onclick="addTask()">SAVE TASK</button>
   </form>
 
   <div id="taskList"></div>
 
-  <button onclick="window.print()">Print Routine</button>
+  <button onclick="window.print()">❤️‍🔥PRINT TASK❤️‍🔥</button>
 
   <script>
     const PASSWORD = "224068123420";
@@ -124,7 +124,7 @@
       const dateInput = document.getElementById('date').value;
       const time = document.getElementById('time').value;
 
-      if (😜FILL KARO || 👋DATE❓ ||time❓) return;
+      if (!taskText || !dateInput || !time) return;
 
       const inputDate = new Date(dateInput);
       const day = inputDate.getDate().toString().padStart(2, '0');
@@ -170,7 +170,7 @@
         const task = btn.closest('.task');
         task.remove();
       } else {
-        alert("❤️‍🔥PASSWORD WRONG❤️‍🔥TASK NOT DELETE");
+        alert("Incorrect password. Task not deleted.");
       }
     }
   </script>
