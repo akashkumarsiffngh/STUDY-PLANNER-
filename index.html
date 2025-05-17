@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>STUDY PLANNER</title>
-  <h2>❤️‍🔥BY AKASH SINGH❤️‍🔥</h2>
+  <title>📖STUDY PLANNER📖<title>
+    <h2>❤️‍🔥BY AKASH SINGH❤️‍🔥</h2> 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
@@ -97,27 +97,68 @@
 </head>
 <body>
 
-  <h2>STUDY PLANNER</h2>
+  <h2>Study Routine Logger - 2025</h2>
 
   <form onsubmit="return false;">
     <input type="text" id="task" placeholder="Enter Task" required>
-    <label>SELECT DATE:</label>
+    <label>Select Date:</label>
     <input type="date" id="date" required>
     <label>Enter Time:</label>
     <input type="time" id="time" required>
-    <button onclick="addTask()">SAVE TASK</button>
+    <button onclick="addTask()">Save Task</button>
   </form>
 
   <div id="taskList"></div>
 
-  <button onclick="window.print()">❤️‍🔥PRINT TASK❤️‍🔥</button>
+  <button onclick="window.print()">😀PRINT TASK😀</button>
 
   <script>
     const PASSWORD = "224068123420";
+    const STORAGE_KEY = "studyTasks2025";
 
     function getDayName(dateStr) {
       const date = new Date(dateStr);
       return new Intl.DateTimeFormat('en-US', { weekday: 'long' }).format(date);
+    }
+
+    function saveTasks(tasks) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
+    }
+
+    function loadTasks() {
+      const data = localStorage.getItem(STORAGE_KEY);
+      return data ? JSON.parse(data) : [];
+    }
+
+    function renderTasks() {
+      const tasks = loadTasks();
+      const container = document.getElementById('taskList');
+      container.innerHTML = '';
+      tasks.forEach((t, index) => {
+        const taskDiv = document.createElement('div');
+        taskDiv.className = 'task';
+        taskDiv.innerHTML = `
+          <strong>${t.task}</strong>
+          <div class="details">
+            <div class="box"><strong>Date:</strong> ${t.day} ${t.month}</div>
+            <div class="box"><strong>Year:</strong> ${t.year}</div>
+            <div class="box"><strong>Day:</strong> ${t.dayName}</div>
+            <div class="box"><strong>Time:</strong> ${t.time}</div>
+            <button onclick="deleteTask(${index})">Delete Task</button>
+            <div class="signature">
+              <strong>Authorized by:</strong><br>
+              <img src="https://raw.githubusercontent.com/akashkumarsiffngh/My-imag/refs/heads/main/IMG_20250517_170329.jpg" alt="Signature">
+            </div>
+          </div>
+        `;
+        taskDiv.addEventListener('click', function (e) {
+          if (e.target.tagName.toLowerCase() !== 'button') {
+            const details = this.querySelector('.details');
+            details.style.display = details.style.display === 'block' ? 'none' : 'block';
+          }
+        });
+        container.appendChild(taskDiv);
+      });
     }
 
     function addTask() {
@@ -133,47 +174,31 @@
       const dayName = getDayName(dateInput);
       const year = 2025;
 
-      const taskDiv = document.createElement('div');
-      taskDiv.className = 'task';
-      taskDiv.innerHTML = `
-        <strong>${taskText}</strong>
-        <div class="details">
-          <div class="box"><strong>Date:</strong> ${day} ${month}</div>
-          <div class="box"><strong>Year:</strong> ${year}</div>
-          <div class="box"><strong>Day:</strong> ${dayName}</div>
-          <div class="box"><strong>Time:</strong> ${time}</div>
-          <button onclick="deleteTask(this)">Delete Task</button>
-          <div class="signature">
-            <strong>Authorized by:</strong><br>
-            <img src="https://raw.githubusercontent.com/akashkumarsiffngh/My-imag/refs/heads/main/IMG_20250517_170329.jpg" alt="Signature">
-          </div>
-        </div>
-      `;
+      const tasks = loadTasks();
+      tasks.push({ task: taskText, day, month, dayName, time, year });
+      saveTasks(tasks);
 
-      taskDiv.addEventListener('click', function (e) {
-        if (e.target.tagName.toLowerCase() !== 'button') {
-          const details = this.querySelector('.details');
-          details.style.display = details.style.display === 'block' ? 'none' : 'block';
-        }
-      });
+      renderTasks();
 
-      document.getElementById('taskList').appendChild(taskDiv);
-
-      // Clear form
       document.getElementById('task').value = '';
       document.getElementById('date').value = '';
       document.getElementById('time').value = '';
     }
 
-    function deleteTask(btn) {
+    function deleteTask(index) {
       const password = prompt("Enter password to delete:");
       if (password === PASSWORD) {
-        const task = btn.closest('.task');
-        task.remove();
+        const tasks = loadTasks();
+        tasks.splice(index, 1);
+        saveTasks(tasks);
+        renderTasks();
       } else {
-        alert("😅WRONG PASSWORD 😅.TRY KARO");
+        alert("😅WRONG PASSWORD.😅TRY KARO");
       }
     }
+
+    // Load tasks on page load
+    renderTasks();
   </script>
 
 </body>
