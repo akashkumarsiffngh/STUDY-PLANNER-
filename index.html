@@ -2,8 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>📖STUDY PLANNER📖<title>
-    <h2>❤️‍🔥BY AKASH SINGH❤️‍🔥</h2> 
+  <title>📖STUDY PLANNER📖</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
@@ -97,7 +96,7 @@
 </head>
 <body>
 
-  <h2>Study Routine Logger - 2025</h2>
+  <h2>📖STUDY PLANNER📖</h2>
 
   <form onsubmit="return false;">
     <input type="text" id="task" placeholder="Enter Task" required>
@@ -105,12 +104,12 @@
     <input type="date" id="date" required>
     <label>Enter Time:</label>
     <input type="time" id="time" required>
-    <button onclick="addTask()">Save Task</button>
+    <button onclick="addTask()">Add Task</button>
   </form>
 
   <div id="taskList"></div>
 
-  <button onclick="window.print()">😀PRINT TASK😀</button>
+  <button onclick="window.print()">PRINT TASK</button>
 
   <script>
     const PASSWORD = "224068123420";
@@ -193,7 +192,7 @@
         saveTasks(tasks);
         renderTasks();
       } else {
-        alert("😅WRONG PASSWORD.😅TRY KARO");
+        alert("Incorrect password. Task not deleted.");
       }
     }
 
@@ -202,4 +201,4 @@
   </script>
 
 </body>
-</html>
+  </html>
