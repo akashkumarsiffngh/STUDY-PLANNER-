@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>STUDY PLANNER</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 15px;
+      background: #f4f4f4;
+    }
+
+    h2 {
+      text-align: center;
+      color: #222;
+    }
+
+    form {
+      background: white;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      margin-bottom: 20px;
+    }
+
+    input, button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      font-size: 1rem;
+      box-sizing: border-box;
+    }
+
+    button {
+      background: #007bff;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    button:hover {
+      background: #0056b3;
+    }
+
+    .task {
+      background: white;
+      border: 1px solid #ccc;
+      padding: 12px;
+      margin-bottom: 15px;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 0 1px 5px rgba(0,0,0,0.05);
+    }
+
+    .details {
+      display: none;
+      margin-top: 10px;
+      background: #f9f9f9;
+      padding: 10px;
+      border-radius: 5px;
+    }
+
+    .box {
+      background: #ffffff;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      padding: 8px;
+      margin: 5px 0;
+    }
+
+    .box strong {
+      display: block;
+      color: #333;
+      margin-bottom: 3px;
+    }
+
+    .signature {
+      margin-top: 10px;
+    }
+
+    .signature img {
+      width: 150px;
+    }
+
+    @media print {
+      form, button {
+        display: none;
+      }
+      .details {
+        display: block !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h2>STUDY PLANNER</h2>
+
+  <form onsubmit="return false;">
+    <input type="text" id="task" placeholder="Enter Task" required>
+    <label>Select Date:</label>
+    <input type="date" id="date" required>
+    <label>Enter Time:</label>
+    <input type="time" id="time" required>
+    <button onclick="addTask()">Add Task</button>
+  </form>
+
+  <div id="taskList"></div>
+
+  <button onclick="window.print()">Print Routine</button>
+
+  <script>
+    const PASSWORD = "224068123420";
+
+    function getDayName(dateStr) {
+      const date = new Date(dateStr);
+      return new Intl.DateTimeFormat('en-US', { weekday: 'long' }).format(date);
+    }
+
+    function addTask() {
+      const taskText = document.getElementById('task').value;
+      const dateInput = document.getElementById('date').value;
+      const time = document.getElementById('time').value;
+
+      if (😜FILL KARO || 👋DATE❓ ||time❓) return;
+
+      const inputDate = new Date(dateInput);
+      const day = inputDate.getDate().toString().padStart(2, '0');
+      const month = inputDate.toLocaleString('default', { month: 'long' });
+      const dayName = getDayName(dateInput);
+      const year = 2025;
+
+      const taskDiv = document.createElement('div');
+      taskDiv.className = 'task';
+      taskDiv.innerHTML = `
+        <strong>${taskText}</strong>
+        <div class="details">
+          <div class="box"><strong>Date:</strong> ${day} ${month}</div>
+          <div class="box"><strong>Year:</strong> ${year}</div>
+          <div class="box"><strong>Day:</strong> ${dayName}</div>
+          <div class="box"><strong>Time:</strong> ${time}</div>
+          <button onclick="deleteTask(this)">Delete Task</button>
+          <div class="signature">
+            <strong>Authorized by:</strong><br>
+            <img src="https://raw.githubusercontent.com/akashkumarsiffngh/My-imag/refs/heads/main/IMG_20250517_170329.jpg" alt="Signature">
+          </div>
+        </div>
+      `;
+
+      taskDiv.addEventListener('click', function (e) {
+        if (e.target.tagName.toLowerCase() !== 'button') {
+          const details = this.querySelector('.details');
+          details.style.display = details.style.display === 'block' ? 'none' : 'block';
+        }
+      });
+
+      document.getElementById('taskList').appendChild(taskDiv);
+
+      // Clear form
+      document.getElementById('task').value = '';
+      document.getElementById('date').value = '';
+      document.getElementById('time').value = '';
+    }
+
+    function deleteTask(btn) {
+      const password = prompt("Enter password to delete:");
+      if (password === PASSWORD) {
+        const task = btn.closest('.task');
+        task.remove();
+      } else {
+        alert("❤️‍🔥PASSWORD WRONG❤️‍🔥TASK NOT DELETE");
+      }
+    }
+  </script>
+
+</body>
+</html>
